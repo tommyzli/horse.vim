@@ -37,6 +37,10 @@
         Bundle 'tpope/vim-fugitive'
         Bundle 'scrooloose/nerdcommenter'
         Bundle 'scrooloose/syntastic.git'
+        Bundle 'Shougo/neocomplcache'
+        Bundle 'Shougo/neosnippet'
+        Bundle 'Shougo/neosnippet-snippets'
+        Bundle 'honza/vim-snippets'
 " }
 
 " General {
