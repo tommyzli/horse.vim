@@ -16,13 +16,17 @@ call vundle#rc()
 " Bundles {
     " Use local bundles if available {
         if filereadable(expand("~/.nvimrc.bundles.local"))
-            source ~/.vimrc.bundles.local
+            source ~/.nvimrc.bundles.local
         endif
     " }
 
     " Use bundles config {
         if filereadable(expand("~/.nvimrc.bundles"))
-            source ~/.vimrc.bundles
+            source ~/.nvimrc.bundles
+        else
+            if filereadable(expand("~/.vimrc.bundles"))
+                source ~/.vimrc.bundles.local
+            endif
         endif
     " }
 " }
@@ -530,8 +534,8 @@ autocmd VimEnter,Colorscheme * :hi MatchParen ctermbg=blue guibg=lightblue
 filetype plugin on
 
 " Use local vimrc if available {
-    if filereadable(expand("~/.vimrc.local"))
-        source ~/.vimrc.local
+    if filereadable(expand("~/.nvimrc.local"))
+        source ~/.nvimrc.local
     endif
 " }
 "
