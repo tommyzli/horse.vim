@@ -42,6 +42,7 @@
         Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neosnippet-snippets'
         Bundle 'honza/vim-snippets'
+        Bundle 'fatih/vim-go'
 " }
 
 " General {

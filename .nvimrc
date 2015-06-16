@@ -540,8 +540,8 @@ filetype plugin on
 " }
 "
 " neo Make
-let g:syntasticToggleMode = 'passive'
-autocmd! BufWritePost * Neomake
-let g:neomake_python_flake8_maker = {
-    \ 'args': ['--ignore=E501'],
-    \ }
+" "let g:syntasticToggleMode = 'passive'
+" autocmd! BufWritePost * Neomake
+" let g:neomake_python_flake8_maker = {
+"    \ 'args': ['--ignore=E501'],
+"    \ }
