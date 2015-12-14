@@ -34,7 +34,7 @@ syntax enable
 set background=dark
 
 " 256 colorspace
-let base16colorspace=256 
+let base16colorspace=256
 
 " Monokai scheme
 colorscheme monokai
@@ -161,6 +161,13 @@ vnoremap > >gv
 " Easier horizontal scrolling
 map zl zL
 map zh zH
+
+" Unbind the cursor keys in insert, normal and visual modes.
+for prefix in ['i', 'n', 'v']
+  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    exe prefix . "noremap " . key . " <Nop>"
+  endfor
+endfor
 
 " { Plugin Config
 
