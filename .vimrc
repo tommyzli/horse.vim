@@ -10,6 +10,7 @@
 
 filetype on
 filetype off
+set shell=bash
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
@@ -37,7 +38,7 @@ set background=dark
 let base16colorspace=256
 
 " Monokai scheme
-colorscheme monokai
+colorscheme base16-monokai
 
 " Wrap long lines
 set wrap
@@ -146,7 +147,6 @@ noremap k gk
 
 " Yank from the cursor to the end of the line
 nnoremap Y y$
-
 
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>

@@ -5,7 +5,7 @@
         set background=dark     " Assume a dark background
     " }
 
-    " Setup Bundle Support {
+    " Setup Plugin Support {
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype off
         set rtp+=~/.vim/bundle/vundle
@@ -14,33 +14,34 @@
 
 " }
 
-" Bundles {
+" Plugins {
     " Deps
-        Bundle 'gmarik/vundle'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
+        Plugin 'gmarik/vundle'
+        Plugin 'MarcWeber/vim-addon-mw-utils'
+        Plugin 'tomtom/tlib_vim'
 
     " General
-        Bundle 'scrooloose/nerdtree'
-        Bundle 'chriskempson/base16-vim'
-        Bundle 'tpope/vim-surround'
-        Bundle 'spf13/vim-autoclose'
-        Bundle 'kien/ctrlp.vim'
-        Bundle 'bling/vim-airline'
-        Bundle 'mbbill/undotree'
-        Bundle 'myusuf3/numbers.vim'
-        Bundle 'airblade/vim-gitgutter'
-        Bundle 'rking/ag.vim'
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'chriskempson/base16-vim'
+        Plugin 'tpope/vim-surround'
+        Plugin 'spf13/vim-autoclose'
+        Plugin 'kien/ctrlp.vim'
+        Plugin 'vim-airline/vim-airline'
+        Plugin 'vim-airline/vim-airline-themes'
+        Plugin 'mbbill/undotree'
+        Plugin 'myusuf3/numbers.vim'
+        Plugin 'airblade/vim-gitgutter'
+        Plugin 'rking/ag.vim'
 
     " Programming
-        Bundle 'tpope/vim-fugitive'
-        Bundle 'scrooloose/nerdcommenter'
-        Bundle 'scrooloose/syntastic.git'
-        Bundle 'benekastah/neomake.git'
-        Bundle 'Shougo/neocomplcache'
-        Bundle 'Shougo/neosnippet'
-        Bundle 'Shougo/neosnippet-snippets'
-        Bundle 'honza/vim-snippets'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'scrooloose/nerdcommenter'
+        Plugin 'scrooloose/syntastic.git'
+        Plugin 'benekastah/neomake.git'
+        Plugin 'Shougo/neocomplcache'
+        Plugin 'Shougo/neosnippet'
+        Plugin 'Shougo/neosnippet-snippets'
+        Plugin 'honza/vim-snippets'
 " }
 
 " General {
