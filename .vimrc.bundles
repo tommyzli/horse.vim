@@ -35,7 +35,6 @@
 
     " Programming
         Plugin 'tpope/vim-fugitive'
-        Plugin 'scrooloose/nerdcommenter'
         Plugin 'scrooloose/syntastic.git'
         Plugin 'benekastah/neomake.git'
         Plugin 'Shougo/neocomplcache'

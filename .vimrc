@@ -41,7 +41,7 @@ let base16colorspace=256
 colorscheme base16-monokai
 
 " Wrap long lines
-set wrap
+" set wrap
 
 " Indents match the previous line
 set autoindent
@@ -60,6 +60,7 @@ set softtabstop=4
 
 " 2 space indents for JS
 au FileType javascript setl sw=2 sts=2 et
+au FileType scss setl sw=2 sts=2 et
 
 " Prevents inserting two spaces after punctuation on a join (J)
 set nojoinspaces
@@ -91,8 +92,11 @@ set cursorline
 " No extra spaces between rows
 set linespace=0
 
+" Show absolute line # of cursor line
+set relativenumber
+
 " Turn on line #s
-set nu
+set number
 
 " Show matchings brackets
 set showmatch
@@ -182,7 +186,7 @@ endfor
         nmap <leader>nt :NERDTreeFind<CR>
 
         let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeIgnore=['\.DS_Store', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
         let NERDTreeChDirMode=0
         let NERDTreeQuitOnOpen=1
         let NERDTreeMouseMode=2
