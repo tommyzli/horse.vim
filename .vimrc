@@ -37,13 +37,20 @@ set background=dark
 let base16colorspace=256
 
 " Monokai scheme
-colorscheme monokai
+colorscheme vim-monokai
+
+" Always show status line
+""set modeline
+""set ls=2
 
 " Wrap long lines
 set wrap
 
 " Indents match the previous line
 set autoindent
+
+" Automatically refresh files
+set autoread
 
 " 4 space indents
 set shiftwidth=4
@@ -60,6 +67,9 @@ set softtabstop=4
 " 2 space indents for JS
 au FileType javascript setl sw=2 sts=2 et
 
+" 2 space indents for Clojure
+au FileType clojure setl sw=2 sts=2 et
+
 " Prevents inserting two spaces after punctuation on a join (J)
 set nojoinspaces
 
@@ -70,7 +80,7 @@ set splitright
 set splitbelow
 
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,java,go,php,javascript,matlab,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
@@ -480,6 +490,7 @@ endfor
 " skip line too long {
   let g:syntastic_python_flake8_args='--ignore=E501'
   let g:syntastic_python_checkers = ['flake8', 'pyflakes']
+  let g:syntastic_mode_map = { 'passive_filetypes': ['javascript'] }
   :hi MatchParen ctermbg=blue guibg=lightblue
   hi MatchParen ctermbg=blue guibg=lightblue
 " }
@@ -501,3 +512,4 @@ filetype plugin on
         source ~/.vimrc.local
     endif
 " }
+

@@ -41,6 +41,8 @@
         Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neosnippet-snippets'
         Bundle 'honza/vim-snippets'
+        Bundle 'lambdatoast/elm.vim'
+        Bundle 'elixir-lang/vim-elixir'
 " }
 
 " General {
