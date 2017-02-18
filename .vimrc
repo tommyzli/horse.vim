@@ -10,6 +10,7 @@
 
 filetype on
 filetype off
+set shell=bash
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
@@ -44,9 +45,9 @@ colorscheme vim-monokai
 ""set ls=2
 
 " Wrap long lines
-set wrap
+" set wrap
 
-" Indents match the previous line
+
 set autoindent
 
 " Automatically refresh files
@@ -66,6 +67,7 @@ set softtabstop=4
 
 " 2 space indents for JS
 au FileType javascript setl sw=2 sts=2 et
+au FileType scss setl sw=2 sts=2 et
 
 " 2 space indents for Clojure
 au FileType clojure setl sw=2 sts=2 et
@@ -100,8 +102,11 @@ set cursorline
 " No extra spaces between rows
 set linespace=0
 
+" Show absolute line # of cursor line
+set relativenumber
+
 " Turn on line #s
-set nu
+set number
 
 " Show matchings brackets
 set showmatch
@@ -157,7 +162,6 @@ noremap k gk
 " Yank from the cursor to the end of the line
 nnoremap Y y$
 
-
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>
 
@@ -192,7 +196,7 @@ endfor
         nmap <leader>nt :NERDTreeFind<CR>
 
         let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeIgnore=['\.DS_Store', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
         let NERDTreeChDirMode=0
         let NERDTreeQuitOnOpen=1
         let NERDTreeMouseMode=2
