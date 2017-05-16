@@ -28,18 +28,6 @@ call vundle#rc()
     " }
 " }
 
-" Syntax highlighting
-syntax enable
-
-" Dark background
-set background=dark
-
-" 256 colorspace
-let base16colorspace=256
-
-" Monokai scheme
-colorscheme vim-monokai
-
 " Always show status line
 ""set modeline
 ""set ls=2
@@ -506,7 +494,7 @@ set background=dark
 set t_Co=256
 
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-monokai
+colorscheme vim-monokai
 
 autocmd VimEnter,Colorscheme * :hi MatchParen ctermbg=blue guibg=lightblue
 filetype plugin on
