@@ -8,15 +8,15 @@
     " Setup Plugin Support {
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
+        set rtp+=~/.vim/bundle/Vundle.vim
+        call vundle#begin()
     " }
 
 " }
 
 " Plugins {
     " Deps
-        Plugin 'gmarik/vundle'
+        Plugin 'VundleVim/Vindle.vim'
         Plugin 'MarcWeber/vim-addon-mw-utils'
         Plugin 'tomtom/tlib_vim'
 
@@ -34,16 +34,20 @@
         Plugin 'rking/ag.vim'
 
     " Programming
-        Bundle 'tpope/vim-fugitive'
-        Bundle 'scrooloose/nerdcommenter'
-        Bundle 'scrooloose/syntastic.git'
-        Bundle 'benekastah/neomake.git'
-        Bundle 'Shougo/neocomplcache'
-        Bundle 'Shougo/neosnippet'
-        Bundle 'Shougo/neosnippet-snippets'
-        Bundle 'honza/vim-snippets'
-        Bundle 'lambdatoast/elm.vim'
-        Bundle 'elixir-lang/vim-elixir'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'scrooloose/nerdcommenter'
+        Plugin 'w0rp/ale'
+        Plugin 'Shougo/neocomplcache'
+        Plugin 'Shougo/neosnippet'
+        Plugin 'Shougo/neosnippet-snippets'
+        Plugin 'honza/vim-snippets'
+        Plugin 'lambdatoast/elm.vim'
+        Plugin 'elixir-lang/vim-elixir'
+" }
+"
+" Post install {
+  call vundle#end()
+  filetype plugin indent on
 " }
 
 " General {
