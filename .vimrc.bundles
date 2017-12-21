@@ -16,7 +16,7 @@
 
 " Plugins {
     " Deps
-        Plugin 'VundleVim/Vindle.vim'
+        Plugin 'VundleVim/Vundle.vim'
         Plugin 'MarcWeber/vim-addon-mw-utils'
         Plugin 'tomtom/tlib_vim'
 
