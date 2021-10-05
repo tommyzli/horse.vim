@@ -34,15 +34,9 @@
         Plugin 'rking/ag.vim'
 
     " Programming
-        Plugin 'tpope/vim-fugitive'
         Plugin 'scrooloose/nerdcommenter'
         Plugin 'w0rp/ale'
-        Plugin 'Shougo/neocomplcache'
-        Plugin 'Shougo/neosnippet'
-        Plugin 'Shougo/neosnippet-snippets'
-        Plugin 'honza/vim-snippets'
-        Plugin 'lambdatoast/elm.vim'
-        Plugin 'elixir-lang/vim-elixir'
+        Plugin 'ycm-core/YouCompleteMe'
 " }
 "
 " Post install {
