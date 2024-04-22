@@ -14,3 +14,6 @@ bindkey "^[^[[D" backward-word
 
 alias gti="git"
 alias k="kubectl"
+
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
