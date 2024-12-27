@@ -6,28 +6,21 @@
 "
 "
 
-" Vundle Setup
+" Plugins
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-filetype on
-filetype off
-set shell=bash
-
-" Bundles {
-    " Use bundles config {
-        if filereadable(expand("~/.vimrc.bundles"))
-            source ~/.vimrc.bundles
-        endif
-    " }
-" }
-
-" Always show status line
-""set modeline
-""set ls=2
-
-" Wrap long lines
-" set wrap
-
-filetype plugin indent off
+call plug#begin()
+Plug 'dense-analysis/ale'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'preservim/nerdtree'
+call plug#end()
 
 set autoindent
 
@@ -46,9 +39,10 @@ set tabstop=4
 " Let backspace delete indent
 set softtabstop=4
 
-" 2 space indents for JS
-au FileType javascript setl sw=2 sts=2 et
-au FileType scss setl sw=2 sts=2 et
+" Override indents for other file types
+autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 
 " Prevents inserting two spaces after punctuation on a join (J)
 set nojoinspaces
@@ -60,15 +54,7 @@ set splitright
 set splitbelow
 
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,java,go,php,javascript,matlab,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
-
-" Workaround vim-commentary for Haskell
-autocmd FileType haskell setlocal commentstring=--\ %s
-" Workaround broken colour highlighting in Haskell
-autocmd FileType haskell setlocal nospell
+autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 
 " Allow backspace in insert mode
 set backspace=indent,eol,start
@@ -160,204 +146,54 @@ for prefix in ['i', 'n', 'v']
   endfor
 endfor
 
-" { Plugin Config
-
-    " Misc {
-        let g:NERDShutUp=1
-        let b:match_ignorecase = 1
-    " }
-
-    " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
-
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.DS_Store', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
-        let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
-        let g:nerdtree_tabs_open_on_gui_startup=0
-    " }
-
-    " ctrlp {
-        let g:ctrlp_working_path_mode = 'ra'
-        nnoremap <silent> <D-t> :CtrlP<CR>
-        nnoremap <silent> <D-r> :CtrlPMRU<CR>
-        let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-        " On Windows use "dir" as fallback command.
-        if has('win32') || has('win64')
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': 'dir %s /-n /b /s /a-d'
-            \ }
-        else
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': 'find %s -type f'
-            \ }
-        endif
-    "}
-
-    " indent_guides {
-        if !exists('g:spf13_no_indent_guides_autocolor')
-            let g:indent_guides_auto_colors = 1
-        else
-            " For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
-        endif
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_guide_size = 1
-        let g:indent_guides_enable_on_vim_startup = 1
-    " }
-" }
-
-" { Function
-
-    " UnBundle {
-    function! UnBundle(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnBundle
-    \ call UnBundle(<args>)
-    " }
-
-    " Initialize directories {
-    function! InitializeDirectories()
-        let parent = $HOME
-        let prefix = 'vim'
-        let dir_list = {
-                    \ 'backup': 'backupdir',
-                    \ 'views': 'viewdir',
-                    \ 'swap': 'directory' }
-
-        if has('persistent_undo')
-            let dir_list['undo'] = 'undodir'
-        endif
-
-        " To specify a different directory in which to place the vimbackup,
-        " vimviews, vimundo, and vimswap files/directories, add the following to
-        " your .vimrc.local file:
-        "   let g:spf13_consolidated_directory = <full path to desired directory>
-        "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
-        if exists('g:spf13_consolidated_directory')
-            let common_dir = g:spf13_consolidated_directory . prefix
-        else
-            let common_dir = parent . '/.' . prefix
-        endif
-
-        for [dirname, settingname] in items(dir_list)
-            let directory = common_dir . dirname . '/'
-            if exists("*mkdir")
-                if !isdirectory(directory)
-                    call mkdir(directory)
-                endif
-            endif
-            if !isdirectory(directory)
-                echo "Warning: Unable to create backup directory: " . directory
-                echo "Try: mkdir -p " . directory
-            else
-                let directory = substitute(directory, " ", "\\\\ ", "g")
-                exec "set " . settingname . "=" . directory
-            endif
-        endfor
-    endfunction
-    " }
-
-    " Initialize NERDTree as needed {
-    function! NERDTreeInitAsNeeded()
-        redir => bufoutput
-        buffers!
-        redir END
-        let idx = stridx(bufoutput, "NERD_tree")
-        if idx > -1
-            NERDTreeMirror
-            NERDTreeFind
-            wincmd l
-        endif
-    endfunction
-    " }
-
-    " Strip whitespace {
-    function! StripTrailingWhitespace()
-        " To disable the stripping of whitespace, add the following to your
-        " .vimrc.local file:
-        "   let g:spf13_keep_trailing_whitespace = 1
-        if !exists('g:spf13_keep_trailing_whitespace')
-            " Preparation: save last search, and cursor position.
-            let _s=@/
-            let l = line(".")
-            let c = col(".")
-            " do the business:
-            %s/\s\+$//e
-            " clean up: restore previous search history, and cursor position
-            let @/=_s
-            call cursor(l, c)
-        endif
-    endfunction
-    " }
-
-    " Shell command {
-    function! s:RunShellCommand(cmdline)
-        botright new
-
-        setlocal buftype=nofile
-        setlocal bufhidden=delete
-        setlocal nobuflisted
-        setlocal noswapfile
-        setlocal nowrap
-        setlocal filetype=shell
-        setlocal syntax=shell
-
-        call setline(1, a:cmdline)
-        call setline(2, substitute(a:cmdline, '.', '=', 'g'))
-        execute 'silent $read !' . escape(a:cmdline, '%#')
-        setlocal nomodifiable
-        1
-    endfunction
-
-    command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-    " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
-    " }
-
-" }
-
-" ALE options {
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-    let g:ale_lint_on_text_changed = 'never'
-    let g:ale_lint_on_enter = 0
-    let g:ale_lint_on_insert_leave = 1
-
-    " Ctrl-j and Ctrl-k navigate through errors
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" }
-
-
 " Default Color Scheme
 syntax enable
 set background=dark
 set t_Co=256
 
-let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme vim-monokai
-
+colorscheme monokai
 autocmd VimEnter,Colorscheme * :hi MatchParen ctermbg=blue guibg=lightblue
-filetype plugin on
 
+" Trigger fzf with ctrl-p
+nnoremap <silent> <C-p> :FZF<CR>
+
+" ALE
+" Ctrl-j and Ctrl-k navigate through errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_linters = {
+  \ 'go': ['gopls'],
+  \}
+
+" NERDTree
+let g:NERDShutUp=1
+map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+map <leader>e :NERDTreeFind<CR>
+nmap <leader>nt :NERDTreeFind<CR>
+
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.DS_Store', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git$', '\.hg', '\.svn', '\.bzr']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=1
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+" Strip trailing whitespace
+function! StripTrailingWhitespace()
+  " To disable the stripping of whitespace, add the following to your
+  " .vimrc.local file:
+  "   let g:spf13_keep_trailing_whitespace = 1
+  if !exists('g:spf13_keep_trailing_whitespace')
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " do the business:
+    %s/\s\+$//e
+    " clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+  endif
+endfunction
